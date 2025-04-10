@@ -1,23 +1,16 @@
 import { z } from "zod";
-export const usernameSchema = z
-  .string()
-  .min(2, "Username must be atleast 2 characters")
-  .max(20, "Username must be no more then 20 characters")
-  .regex(
-    /^[a-zA-Z0-9_]+$/,
-    "Username must only contain letters, numbers and underscores"
-  );
 
-export const emailValidation = z
+export const usernameValidation = z
   .string()
-  .email({ message: "Invalid email address" });
-
-export const passwordValidation = z
-  .string()
-  .min(6, "Password must be atleast 6 characters");
+  .min(2, "Username must be at least 2 characters")
+  .max(20, "Username must be no more than 20 characters")
+  .regex(/^[a-zA-Z0-9_]+$/, "Username must not contain special characters");
 
 export const signUpSchema = z.object({
-  username: usernameSchema,
-  email: emailValidation,
-  password: passwordValidation,
+  username: usernameValidation,
+
+  email: z.string().email({ message: "Invalid email address" }),
+  password: z
+    .string()
+    .min(6, { message: "Password must be at least 6 characters" }),
 });
