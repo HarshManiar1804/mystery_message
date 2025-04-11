@@ -38,6 +38,7 @@ export async function GET(request: Request) {
       username,
       isVerified: true,
     });
+    console.log(existingVerifyUser);
 
     if (existingVerifyUser) {
       return Response.json(
